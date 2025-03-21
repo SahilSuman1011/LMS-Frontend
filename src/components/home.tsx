@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "./layout/AuthLayout";
 import LeadDashboard from "./leads/LeadDashboard";
 
@@ -13,10 +14,27 @@ interface HomeProps {
 const Home = ({
   userRole = "user",
   isAuthenticated = true,
-  isLoading = false,
+  isLoading: initialLoading = false,
   userName = "John Doe",
   notificationCount = 3,
 }: HomeProps) => {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(initialLoading || true);
+
+  // Simulate authentication check
+  useEffect(() => {
+    // In a real app, you would check for a token in localStorage or a cookie
+    const checkAuth = async () => {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // For demo purposes, we'll assume the user is authenticated
+      setIsLoading(false);
+    };
+
+    checkAuth();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
       <AuthLayout

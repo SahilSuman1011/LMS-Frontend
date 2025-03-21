@@ -17,6 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
+import { ThemeToggle } from "../ui/theme-toggle";
 
 interface HeaderProps {
   userName?: string;
@@ -36,18 +37,20 @@ const Header = ({
   onNotificationsClick = () => console.log("Notifications clicked"),
 }: HeaderProps) => {
   return (
-    <header className="bg-white border-b border-gray-200 h-[70px] flex items-center justify-between px-6 w-full">
+    <header className="bg-card border-b border-border h-[70px] flex items-center justify-between px-6 w-full">
       <div className="flex items-center gap-4 w-1/3">
         <div className="relative w-full max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input
             placeholder="Search leads, contacts..."
-            className="pl-10 bg-gray-50 border-gray-200 focus:bg-white w-full"
+            className="pl-10 bg-background/50 border-input focus:bg-background w-full"
           />
         </div>
       </div>
 
       <div className="flex items-center gap-4">
+        <ThemeToggle />
+
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -57,9 +60,9 @@ const Header = ({
                 className="relative"
                 onClick={onNotificationsClick}
               >
-                <Bell className="h-5 w-5 text-gray-600" />
+                <Bell className="h-5 w-5 text-foreground/70" />
                 {notificationCount > 0 && (
-                  <span className="absolute top-1 right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute top-1 right-1 bg-destructive text-destructive-foreground text-xs rounded-full h-4 w-4 flex items-center justify-center">
                     {notificationCount}
                   </span>
                 )}
@@ -71,7 +74,7 @@ const Header = ({
           </Tooltip>
         </TooltipProvider>
 
-        <div className="h-6 w-px bg-gray-200"></div>
+        <div className="h-6 w-px bg-border"></div>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -90,9 +93,11 @@ const Header = ({
               </Avatar>
               <div className="flex flex-col items-start text-sm">
                 <span className="font-medium">{userName}</span>
-                <span className="text-xs text-gray-500">{userRole}</span>
+                <span className="text-xs text-muted-foreground">
+                  {userRole}
+                </span>
               </div>
-              <ChevronDown className="h-4 w-4 text-gray-500" />
+              <ChevronDown className="h-4 w-4 text-muted-foreground" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
@@ -104,7 +109,7 @@ const Header = ({
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuItem>Help</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={onLogout} className="text-red-500">
+            <DropdownMenuItem onClick={onLogout} className="text-destructive">
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>

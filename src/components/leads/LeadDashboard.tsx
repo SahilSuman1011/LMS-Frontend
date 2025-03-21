@@ -5,7 +5,8 @@ import CallModal from "./CallModal";
 import LeadDetailsModal from "./LeadDetailsModal";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Phone, Users, Calendar, TrendingUp } from "lucide-react";
+import { Phone, Users, Calendar, TrendingUp, Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 // Define the Lead interface here instead of importing it
 interface Lead {
@@ -211,13 +212,23 @@ const LeadDashboard = ({
   };
 
   return (
-    <div className="w-full bg-gray-50 p-4 md:p-6 space-y-6">
+    <div className="w-full bg-background p-4 md:p-6 space-y-6">
+      {/* Header with title and add button */}
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Lead Dashboard</h1>
+        <Button className="gap-2">
+          <Plus className="h-4 w-4" /> Add New Lead
+        </Button>
+      </div>
+
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className="border border-border hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+              <Users className="h-4 w-4 text-primary" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalLeads}</div>
@@ -225,12 +236,14 @@ const LeadDashboard = ({
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border border-border hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Today's Follow-ups
             </CardTitle>
-            <Calendar className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center">
+              <Calendar className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{todayFollowUps}</div>
@@ -238,12 +251,14 @@ const LeadDashboard = ({
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border border-border hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Connected Calls
             </CardTitle>
-            <Phone className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900/20 flex items-center justify-center">
+              <Phone className="h-4 w-4 text-green-600 dark:text-green-400" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{connectedCalls}</div>
@@ -253,12 +268,14 @@ const LeadDashboard = ({
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border border-border hover:shadow-md transition-shadow">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
               Conversion Rate
             </CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+            <div className="h-8 w-8 rounded-full bg-purple-100 dark:bg-purple-900/20 flex items-center justify-center">
+              <TrendingUp className="h-4 w-4 text-purple-600 dark:text-purple-400" />
+            </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{conversionRate}%</div>
@@ -269,7 +286,7 @@ const LeadDashboard = ({
 
       {/* Tabs for different lead views */}
       <Tabs defaultValue="all" className="w-full">
-        <TabsList className="mb-4">
+        <TabsList className="mb-4 w-full max-w-md grid grid-cols-4">
           <TabsTrigger value="all">All Leads</TabsTrigger>
           <TabsTrigger value="today">Today's Follow-ups</TabsTrigger>
           <TabsTrigger value="interested">Interested</TabsTrigger>

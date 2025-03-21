@@ -46,7 +46,7 @@ const SidebarLink = ({
                 "w-full justify-start gap-3 px-3",
                 isCollapsed ? "justify-center px-2" : "",
                 isActive
-                  ? "bg-accent text-accent-foreground"
+                  ? "bg-accent text-accent-foreground font-medium"
                   : "hover:bg-accent hover:text-accent-foreground",
               )}
             >
@@ -76,7 +76,7 @@ const Sidebar = ({ userRole = "user" }: SidebarProps) => {
 
   const navLinks = [
     {
-      to: "/",
+      to: "/dashboard",
       icon: <Home size={20} />,
       label: "Dashboard",
       showFor: ["admin", "user"],
@@ -120,7 +120,7 @@ const Sidebar = ({ userRole = "user" }: SidebarProps) => {
   return (
     <div
       className={cn(
-        "flex h-full flex-col bg-card p-3 shadow-md transition-all duration-300",
+        "flex h-full flex-col bg-card p-3 shadow-md transition-all duration-300 border-r border-border",
         isCollapsed ? "w-[70px]" : "w-[250px]",
       )}
     >
@@ -152,25 +152,27 @@ const Sidebar = ({ userRole = "user" }: SidebarProps) => {
       </div>
 
       <div className="mt-auto pb-4">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                className={cn(
-                  "w-full justify-start gap-3 px-3 text-destructive hover:bg-destructive/10 hover:text-destructive",
-                  isCollapsed ? "justify-center px-2" : "",
-                )}
-              >
-                <LogOut size={20} />
-                {!isCollapsed && <span>Logout</span>}
-              </Button>
-            </TooltipTrigger>
-            {isCollapsed && (
-              <TooltipContent side="right">Logout</TooltipContent>
-            )}
-          </Tooltip>
-        </TooltipProvider>
+        <Link to="/login">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={cn(
+                    "w-full justify-start gap-3 px-3 text-destructive hover:bg-destructive/10 hover:text-destructive",
+                    isCollapsed ? "justify-center px-2" : "",
+                  )}
+                >
+                  <LogOut size={20} />
+                  {!isCollapsed && <span>Logout</span>}
+                </Button>
+              </TooltipTrigger>
+              {isCollapsed && (
+                <TooltipContent side="right">Logout</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+        </Link>
       </div>
     </div>
   );
